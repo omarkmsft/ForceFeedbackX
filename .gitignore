@@ -1,0 +1,26 @@
+## Logs
+logs/
+
+## Build output
+**/bin/
+**/obj/
+
+## NuGet
+*.nupkg
+.nuget/
+
+## SimConnect DLLs (must be sourced from MSFS SDK — see lib/README.md)
+lib/*.dll
+
+## User data
+profiles.json
+
+## IDE
+.vs/
+*.user
+*.suo
+.idea/
+
+## OS
+.DS_Store
+Thumbs.db

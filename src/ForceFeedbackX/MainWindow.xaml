@@ -1,0 +1,132 @@
+<Window x:Class="ForceFeedbackX.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ForceFeedbackX" Height="480" Width="520"
+        ResizeMode="CanMinimize" Background="#1E1E2E">
+
+  <Window.Resources>
+    <Style TargetType="TextBlock">
+      <Setter Property="Foreground" Value="#CDD6F4"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+      <Setter Property="FontSize"   Value="13"/>
+    </Style>
+    <Style TargetType="Label">
+      <Setter Property="Foreground" Value="#CDD6F4"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+    </Style>
+    <Style TargetType="Slider">
+      <Setter Property="Foreground" Value="#89B4FA"/>
+    </Style>
+    <Style TargetType="Button">
+      <Setter Property="Background"  Value="#313244"/>
+      <Setter Property="Foreground"  Value="#CDD6F4"/>
+      <Setter Property="BorderBrush" Value="#45475A"/>
+      <Setter Property="Padding"     Value="12,4"/>
+      <Setter Property="FontFamily"  Value="Segoe UI"/>
+    </Style>
+  </Window.Resources>
+
+  <Grid Margin="16">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>  <!-- Status bar -->
+      <RowDefinition Height="16"/>
+      <RowDefinition Height="Auto"/>  <!-- Aircraft info -->
+      <RowDefinition Height="16"/>
+      <RowDefinition Height="Auto"/>  <!-- Live data -->
+      <RowDefinition Height="16"/>
+      <RowDefinition Height="Auto"/>  <!-- Sliders -->
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>  <!-- Buttons -->
+    </Grid.RowDefinitions>
+
+    <!-- Status bar -->
+    <Border Grid.Row="0" Background="#313244" CornerRadius="6" Padding="12,8">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+          <Ellipse x:Name="MsfsStatusDot" Width="10" Height="10" Fill="#F38BA8"
+                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+          <TextBlock x:Name="MsfsStatusText" Text="MSFS: Disconnected" FontWeight="SemiBold"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+          <Ellipse x:Name="FfbStatusDot" Width="10" Height="10" Fill="#F38BA8"
+                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+          <TextBlock x:Name="FfbStatusText" Text="FFB: No device" FontWeight="SemiBold"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Aircraft info -->
+    <Border Grid.Row="2" Background="#313244" CornerRadius="6" Padding="12,8">
+      <StackPanel>
+        <TextBlock FontWeight="Bold" Foreground="#89B4FA" Text="Aircraft" Margin="0,0,0,4"/>
+        <TextBlock x:Name="AircraftTitleText" Text="— none loaded —"/>
+        <TextBlock x:Name="AircraftTypeText"  Text="Type: —" Margin="0,4,0,0"
+                   Foreground="#A6E3A1"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Live telemetry -->
+    <Border Grid.Row="4" Background="#313244" CornerRadius="6" Padding="12,8">
+      <UniformGrid Columns="3">
+        <StackPanel Margin="0,0,8,0">
+          <TextBlock Text="Airspeed" Foreground="#89B4FA" FontSize="11"/>
+          <TextBlock x:Name="AirspeedText" Text="— kts" FontSize="18" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Margin="0,0,8,0">
+          <TextBlock Text="G Force" Foreground="#89B4FA" FontSize="11"/>
+          <TextBlock x:Name="GForceText" Text="— G" FontSize="18" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Stall" Foreground="#89B4FA" FontSize="11"/>
+          <TextBlock x:Name="StallText" Text="OK" FontSize="18" FontWeight="Bold"
+                     Foreground="#A6E3A1"/>
+        </StackPanel>
+      </UniformGrid>
+    </Border>
+
+    <!-- Sliders -->
+    <Border Grid.Row="6" Background="#313244" CornerRadius="6" Padding="12,10">
+      <StackPanel>
+        <TextBlock FontWeight="Bold" Foreground="#89B4FA" Text="Force Settings" Margin="0,0,0,8"/>
+
+        <Grid Margin="0,0,0,8">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="Force Multiplier" VerticalAlignment="Center"/>
+          <Slider  Grid.Column="1" x:Name="ForceSlider"
+                   Minimum="0" Maximum="1" Value="0.8"
+                   ValueChanged="ForceSlider_ValueChanged" VerticalAlignment="Center"/>
+          <TextBlock Grid.Column="2" x:Name="ForceSliderValue" Text="0.80"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="Damper Gain" VerticalAlignment="Center"/>
+          <Slider  Grid.Column="1" x:Name="DamperSlider"
+                   Minimum="0" Maximum="1" Value="0.3"
+                   ValueChanged="DamperSlider_ValueChanged" VerticalAlignment="Center"/>
+          <TextBlock Grid.Column="2" x:Name="DamperSliderValue" Text="0.30"
+                     HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+      <Button Content="Profiles…" Click="ProfilesButton_Click" Margin="0,0,8,0"/>
+      <Button Content="Reset Forces" Click="ResetButton_Click"/>
+    </StackPanel>
+  </Grid>
+</Window>
