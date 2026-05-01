@@ -13,7 +13,12 @@ public partial class App : Application
 {
     public static IHost AppHost { get; private set; } = null!;
 
-    protected override async void OnStartup(StartupEventArgs e)
+    private async void App_OnStartup(object sender, StartupEventArgs e)
+    {
+        await OnStartupAsync(e);
+    }
+
+    private async Task OnStartupAsync(StartupEventArgs e)
     {
         base.OnStartup(e);
 
